@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./frontend/.env
+    depends_on:
+      - primary-backend
+
+  primary-backend:
+    build:
+      context: ./backend/primary-backend
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./backend/primary-backend/.env
+    depends_on:
+      - redis
+      - redis-queue
+
+  worker:
+    build:
+      context: ./backend/worker
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/worker/.env
+    depends_on:
+      - redis
+      - redis-queue
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  redis-queue:
+    image: redis:alpine
+    ports:
+      - "6380:6379"
