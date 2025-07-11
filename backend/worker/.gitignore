@@ -1,0 +1,7 @@
+.env
+node_modules
+exec
+build
+deploy.yaml
+Dockerfile
+hpa.yaml
