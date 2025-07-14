@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./HireReady/frontEnd
+        working-directory: ./frontend
 
     steps:
       - uses: actions/checkout@v3
