@@ -20,10 +20,10 @@ jobs:
       - name: Build and push frontend
         uses: docker/build-push-action@v5
         with:
-          context: ./frontEnd
-          file: ./frontEnd/Dockerfile
+          context: ./frontend
+          file: ./frontend/Dockerfile
           push: true
-          tags: yourusername/frontend:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/frontend:latest  # ✅ FIXED syntax
 
       - name: Build and push primary-backend
         uses: docker/build-push-action@v5
@@ -31,7 +31,7 @@ jobs:
           context: ./backend/primary-backend
           file: ./backend/primary-backend/Dockerfile
           push: true
-          tags: yourusername/primary-backend:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/primary-backend:latest  # ✅ FIXED syntax
 
       - name: Build and push worker
         uses: docker/build-push-action@v5
@@ -39,4 +39,4 @@ jobs:
           context: ./backend/worker
           file: ./backend/worker/Dockerfile
           push: true
-          tags: yourusername/worker:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/worker:latest  # ✅ FIXED syntax
