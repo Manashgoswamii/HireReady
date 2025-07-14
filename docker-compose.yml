@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: DOCKER_USERNAME/frontend:latest
     ports:
       - "3000:3000"
     env_file:
@@ -13,12 +11,10 @@ services:
       - primary-backend
 
   primary-backend:
-    build:
-      context: ./backend/primary-backend
-      dockerfile: Dockerfile
+    image: DOCKER_USERNAME/primary-backend:latest
     ports:
       - "4000:4000"
-      - "8080:8080" 
+      - "8080:8080"
     env_file:
       - ./backend/primary-backend/.env
     depends_on:
@@ -26,9 +22,7 @@ services:
       - redis-queue
 
   worker:
-    build:
-      context: ./backend/worker
-      dockerfile: Dockerfile
+    image: DOCKER_USERNAME/worker:latest
     env_file:
       - ./backend/worker/.env
     depends_on:
