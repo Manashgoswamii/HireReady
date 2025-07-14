@@ -40,3 +40,16 @@ jobs:
           file: ./backend/worker/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/worker:latest  # ✅ FIXED syntax
+      
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_USERNAME }}/frontend:latest
+            docker pull ${{ secrets.DOCKER_USERNAME }}/primary-backend:latest
+            docker pull ${{ secrets.DOCKER_USERNAME }}/worker:latest
+            docker-compose down || true
+            docker-compose up -d
