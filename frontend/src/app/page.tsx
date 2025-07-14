@@ -9,6 +9,9 @@ export default function Home() {
 
   const router = useRouter();
 
+
+
+  
   return (
     <div className="flex flex-col gap-10 h-[100vh] overlfow-hidden">
       <Navbar/>
