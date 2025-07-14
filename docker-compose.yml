@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   frontend:
-    image: DOCKER_USERNAME/frontend:latest
+    image: ${{ secrets.DOCKER_USERNAME }}/frontend:latest
     ports:
       - "3000:3000"
     env_file:
@@ -11,7 +11,7 @@ services:
       - primary-backend
 
   primary-backend:
-    image: DOCKER_USERNAME/primary-backend:latest
+    image: ${{ secrets.DOCKER_USERNAME }}/primary-backend:latest
     ports:
       - "4000:4000"
       - "8080:8080"
@@ -22,7 +22,7 @@ services:
       - redis-queue
 
   worker:
-    image: DOCKER_USERNAME/worker:latest
+    image: ${{ secrets.DOCKER_USERNAME }}/worker:latest
     env_file:
       - ./backend/worker/.env
     depends_on:
