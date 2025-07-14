@@ -1,0 +1,74 @@
+name: CI - Build and Check All Services
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  build-frontend:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontEnd
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Lint Code
+        run: npm run lint
+
+      - name: Build Frontend
+        run: npm run build
+
+  build-primary-backend:
+    name: Build Primary Backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend/primary-backend
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Type Check (TS)
+        run: npx tsc --noEmit
+
+  build-worker:
+    name: Build Worker
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend/worker
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Type Check (TS)
+        run: npx tsc --noEmit
