@@ -48,8 +48,9 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/frontend:latest
-            docker pull ${{ secrets.DOCKER_USERNAME }}/primary-backend:latest
-            docker pull ${{ secrets.DOCKER_USERNAME }}/worker:latest
-            docker-compose down || true
-            docker-compose up -d
+           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/frontend:latest
+           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/primary-backend:latest
+           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/worker:latest
+           cd /home/ubuntu
+           sudo docker-compose down || true
+           sudo docker-compose up -d
